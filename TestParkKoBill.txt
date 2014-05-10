@@ -1,0 +1,29 @@
+*** Settings ***
+Library        	Selenium2Library
+#Test Teardown	Close Browser
+
+*** Variables ***
+${HOME_URL}     http://localhost/showreceipt.php
+
+*** Test Cases ***
+Check Bill Payment for ParkKo
+	Open browser to home page
+	Fill in Bill Payment   กก-1111
+	Page Should Contain    เชียงใหม่    
+	Page Should Contain    2014-05-09 14:00:00    
+	Page Should Contain    2014-05-09 16:00:00 
+	Page Should Contain    2    
+	Page Should Contain    10
+	[Teardown]   Close Browser
+
+
+*** Keywords ***
+Open browser to home page
+	Open Browser    ${HOME_URL}
+	Maximize Browser Window
+
+Fill in Bill Payment
+	[Arguments]  ${license}
+	Input Text    carNum    ${license}
+	Click Button    search
+
