@@ -1,0 +1,43 @@
+﻿*** Settings ***
+Library         Selenium2Library
+Suite Teardown	Close Browser
+
+*** Variables ***
+${HOME_URL}    http://119.59.97.33/?page=showreceipt
+
+*** Test Cases ***
+Rule for check Bill Payment for ParkKo 
+	[Template]   Flow for check Bill Payment for ParkKo
+    #--------------------------------------------------------------------------------------------#
+    #   license plate   |                            Result                                      #
+    #--------------------------------------------------------------------------------------------#
+    #------license------|--province--------checkin-----------checkout-------time--fee------------#
+          กก-1111			เชียงใหม่    วันที่ 09/05/57 เวลา 14:00:00 น.    วันที่ 09/05/57 เวลา 16:00:00 น.    2 ชั่วโมง    10 บาท
+          กก-1112			เชียงใหม่    วันที่ 08/05/57 เวลา 12:00:00 น.    วันที่ 09/05/57 เวลา 15:38:30 น.    4 ชั่วโมง    60 บาท
+
+
+
+*** Keywords ***
+Flow for check Bill Payment for ParkKo
+	[Arguments]   ${license}    ${expected_province}    ${expected_checkin}    ${expected_checkout}    ${expected_parking_time}    ${expected_parking_fee}    
+    Open browser to home page 
+    Fill in Bill Payment    ${license}
+    I should see result    ${expected_province}    ${expected_checkin}    ${expected_checkout}    ${expected_parking_time}    ${expected_parking_fee}
+    [Teardown]   Close Browser
+
+Open browser to home page
+	Open Browser    ${HOME_URL}
+	Maximize Browser Window
+	
+Fill in Bill Payment
+	[Arguments]  ${license}
+	Input Text    carNum    ${license}
+	Click Button    search
+
+I should see result
+	[Arguments]  ${expected_province}    ${expected_checkin}    ${expected_checkout}    ${expected_parking_time}    ${expected_parking_fee}
+	Page Should Contain    ${expected_province}                
+	Page Should Contain    ${expected_checkin}
+	Page Should Contain    ${expected_checkout}
+	Page Should Contain    ${expected_parking_time}
+	Page Should Contain    ${expected_parking_fee}
