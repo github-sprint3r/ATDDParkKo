@@ -8,12 +8,12 @@ Check number of car check in
 	Open Browser to homepage
 	Fill in car number    จตฉ714
 	Fill in province    เชียงใหม่
-	
+	[TearDown]    Close Browser
 
 *** Keywords ***
 Open Browser to homepage
-	Open Browser    http://119.59.97.33/
-	[TearDown]    Close Browser
+	Open Browser    http://119.59.97.33/?page=form_checkout
+	
 
 Fill in car number
     [Arguments]    ${car_number}
@@ -21,5 +21,5 @@ Fill in car number
    
 Fill in province
 	[Arguments]    ${province}
-    Input Text    car_number    ${province}
-    Click Button    bt_check_in
+    Input Text    province    ${province}
+    Click Button    bt_check_out
