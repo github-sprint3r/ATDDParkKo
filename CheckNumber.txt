@@ -3,7 +3,7 @@ Library        	Selenium2Library
 #Test Teardown	Close Browser
 
 *** Variables ***
-${HOME_URL}    https:\\
+${HOME_URL}    http://www.google.com
 
 *** Test Cases ***
 Check number of car check in
