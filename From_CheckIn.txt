@@ -8,10 +8,11 @@ Library        	Selenium2Library
 *** Test Cases ***
 Check number of car check in
 	Open Browser to homepage
-	Fill in car number    จตฉ714
+	Fill in car number    จตฉ7112
 	Fill in province    เชียงใหม่
+	Wait Until Page Contains    บันทึกข้อมูลเรียบร้อย
 	[TearDown]    Close Browser
-
+	
 *** Keywords ***
 Open Browser to homepage
 	Open Browser    http://119.59.97.33/?page=form_checkin
